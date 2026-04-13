@@ -1,0 +1,83 @@
+# Project plan
+
+## Start-up phase
+
+The following infrastructure is already in place:
+
+- **Collaboration platform:** The project repository will be hosted on GitHub under the `we-data-ch` organization with a CI pipeline (GitHub Actions) for R CMD check across Linux, macOS, and Windows.
+- **Domain expertise:** David Munoz Tord (Johnson & Johnson) is embedded in the project team and will ensure that all design decisions align with real-world GxP validation practices and regulatory expectations.
+- **License decision:** `valR` will be released under the MIT license, ensuring accessibility and encouraging widespread adoption.
+- **Reporting framework:** Progress will be tracked via GitHub milestones and issues. Quarterly updates will be published on the R Consortium blog, with tutorial videos on the WeData YouTube channel.
+
+## Technical delivery
+
+### Months 1--2: Package infrastructure and `valR::risk_score()`
+
+- Set up the `valR` R package structure following `devtools`/`usethis` conventions.
+- Implement `valR::risk_score()` as a wrapper and extension of `riskmetric`, adding pharma-specific scoring dimensions (open issues, maintainer count, reverse dependency count, CRAN check history).
+- Define the three-tier risk classification (LOW / MEDIUM / HIGH) and its mapping to validation levels.
+- Write unit tests with `testthat` covering the scoring pipeline.
+- Establish the `validation/` output directory structure used across all `valR` functions.
+
+**Expected outcome:** A functional risk scoring function that any R user can run against any CRAN package to obtain a standardized, reproducible risk classification.
+
+### Months 3--4: `valR::validate_package()`
+
+- Implement the automated qualification pipeline: IQ (installation check), OQ (test execution via `testthat`), output hashing via `digest`.
+- Implement version-to-version comparison logic to flag regressions between package versions.
+- Build the PDF report generator using `quarto` (Suggests), pre-filling results from the qualification run.
+- Implement optional digital signing of reports via `openssl` (Suggests).
+- Write integration tests covering the full pipeline for representative CRAN packages.
+
+**Expected outcome:** A fully automated package validation pipeline producing audit-ready, signed PDF reports -- with no manual steps required for low- and medium-risk packages.
+
+### Months 5--6: `valR::validation_docs()`
+
+- Design and implement the full set of GxP document templates: Validation Plan, URS, FS, IQ, OQ, PQ, and Validation Report.
+- Implement metadata extraction from `DESCRIPTION`, `NEWS`, CRAN checks, and validation results to pre-fill templates.
+- Implement the human-input prompting system for context-specific sections (intended use, organizational scope).
+- Add support for organizational customization: headers, logos, approval signature blocks.
+- Conduct user testing of generated documents with pharmaceutical QA stakeholders (via David Munoz Tord's network at J&J and the broader pharmaverse community).
+
+**Expected outcome:** Auto-generated, GxP-compliant validation document sets that reduce manual documentation effort by an estimated 80% compared to current practice.
+
+### Months 7--9: `valR::validated_snapshot()` and `valR::export_dockerfile()`
+
+- Implement `valR::validated_snapshot()`: `renv` lockfile generation, `valR.lock` manifest construction, per-package evidence archiving, and environment-level PDF report.
+- Define and document the `valR.lock` JSON schema.
+- Implement `valR::verify_snapshot()` for environment re-validation against a previous snapshot.
+- Implement `valR::export_dockerfile()`: generates a ready-to-build Dockerfile from the snapshot as a plain text file (no system calls).
+- Write vignettes demonstrating the full end-to-end workflow: from `risk_score()` through `validated_snapshot()`.
+
+**Expected outcome:** A complete environment validation system that produces a portable, auditable validation capsule. Pharmaceutical teams can attest: *"This R environment was validated on [date] against these packages, producing these outputs."*
+
+### Month 10: Documentation, community testing, and CRAN submission
+
+- Build the `pkgdown` documentation site with full function reference, articles, and getting-started guides.
+- Conduct broader user testing with R users in regulated environments; collect and incorporate feedback.
+- Submit to CRAN.
+- Publish announcement blog posts on R-bloggers, Posit Community, and the R Consortium blog.
+- Present at UseR! 2026 or Posit::conf 2026 if timing permits.
+
+**Expected outcome:** A CRAN-published `valR` package with comprehensive documentation, validated by real users from the pharmaceutical industry.
+
+## Other aspects
+
+- **Community coordination:** We will engage with the pharmaverse working groups (R Validation Hub, PHUSE) during development to ensure alignment and avoid duplication with ongoing community efforts.
+- **Code hosting:** All code hosted on GitHub at `github.com/we-data-ch/valR`, open to contributions.
+- **Quarterly blog posts:** Progress updates on the R Consortium blog at months 2, 4, 7, and 10.
+- **WeData YouTube channel:** Tutorial videos in French and English covering `valR` usage in pharma contexts.
+
+## Budget & funding plan
+
+The total requested funding is **$15,000 USD**, allocated as follows:
+
+| Milestone | Duration | Budget |
+|-----------|----------|--------|
+| Risk scoring (`risk_score()`) | Months 1--2 | $3,000 |
+| Package validation pipeline (`validate_package()`) | Months 3--4 | $3,500 |
+| GxP documentation generation (`validation_docs()`) | Months 5--6 | $4,000 |
+| Environment snapshot + CRAN submission (`validated_snapshot()`) | Months 7--10 | $4,500 |
+| **Total** | **10 months** | **$15,000** |
+
+The budget is primarily allocated to development labor (approximately 300--350 hours at contributor part-time rates), GxP template design and review by pharmaceutical domain experts, and community outreach. GitHub Actions CI/CD is provided free for open-source projects and requires no separate funding.

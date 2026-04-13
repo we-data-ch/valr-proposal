@@ -1,0 +1,17 @@
+# Signatories
+
+## Project team
+
+**Fabrice Hategekimana (project leader and main developer):** Fabrice is a Master's graduate in Computer Science from the University of Geneva with a strong focus on language semantics and type systems. He works as a certified IT trainer at the Geneva Institute of Technology (Satom IT & Learning Solutions), where he regularly teaches R to professionals from regulated industries including healthcare and finance. He is the creator of the TypR transpiler and has practical experience bridging systems programming with the R ecosystem. He maintains the [WeData YouTube channel](https://www.youtube.com/watch?v=GMo20g__nOc&list=PLSYhtt87oGAJH8Pe-VMcoBkQfek7VJ0hM) covering R and data science tooling in both French and English.
+
+**David Munoz Tord (contributor and pharma domain expert):** Senior Statistical Developer at Johnson & Johnson with deep expertise in R development for clinical and pharmaceutical applications. He has direct, day-to-day experience with GxP validation requirements, regulatory submission workflows, and the practical constraints that pharmaceutical organizations face when adopting open-source R packages. He is the main maintainer of `echarts4r` and has contributed to many R packages in the community. His insider perspective on the pharmaceutical industry's unmet needs is central to `valR`'s design.
+
+**Vestin Hategekimana (contributor):** PhD student with computational skills at the University of Geneva. He writes R on a weekly basis and has experience with web technologies in R and with reproducible research workflows. He will contribute to the documentation site and vignettes.
+
+## Contributors
+
+The project is backed by the **WeData Swiss Verein** (association), which provides organizational support and community engagement infrastructure, including the WeData YouTube channel and social media presence.
+
+## Consulted
+
+**Jean-Philippe Coene:** A prominent contributor in the R community with projects like `ambiorix`, *JavaScript for R*, `echarts4r`, and `MCPr`. He is the founder of the Opifex company and has followed the evolution of the WeData team's work. He will be consulted on package architecture and CRAN submission strategy.

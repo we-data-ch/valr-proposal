@@ -1,0 +1,118 @@
+# The Proposal
+
+## Overview
+
+We propose to develop **`valR`**, an open-source R package that provides an integrated, automated framework for validating R packages in pharmaceutical and regulated environments. `valR` is designed as a composable toolkit: its four core functions can be used independently or as a complete end-to-end validation pipeline, depending on organizational needs and risk levels.
+
+`valR` is deliberately built on existing community infrastructure. It wraps and extends `riskmetric` for risk scoring, `renv` for environment reproducibility, `testthat` for test execution, and `quarto` or `rmarkdown` for report generation. Rather than reinventing the wheel, `valR` provides the automation layer and the GxP-specific logic that these excellent tools currently lack.
+
+## Core functions
+
+### `valR::risk_score()` -- Automated risk classification
+
+The first step in any GxP-compliant validation is a risk assessment. `valR::risk_score()` wraps `riskmetric`'s package scoring infrastructure and extends it with additional pharma-relevant indicators:
+
+```r
+valR::risk_score("survival")
+#> Package: survival
+#> CRAN checks:    PASS
+#> Test coverage:  91%
+#> Reverse deps:   847
+#> Maintainers:    2
+#> Release freq:   Regular
+#> Open issues:    12
+#> ─────────────────────────
+#> Risk score:     0.12 / 1
+#> Classification: LOW
+#> Recommended validation level: 1 (basic IQ/OQ)
+```
+
+The output classifies packages as LOW, MEDIUM, or HIGH risk, and maps each classification to a recommended validation level. This allows organizations to apply proportional effort: lightweight documentation for low-risk packages, full qualification for high-risk ones. The scoring methodology is transparent and configurable, so organizations can apply their own weights to comply with their internal SOPs.
+
+### `valR::validate_package()` -- Automated qualification pipeline
+
+`valR::validate_package()` runs a complete automated qualification sequence for a given package:
+
+```r
+valR::validate_package("dplyr", version = "1.1.4")
+```
+
+The pipeline executes the following steps:
+
+1. **Installation Qualification (IQ):** Verifies that the package installs cleanly from CRAN on the current platform, with no warnings or errors. Records R version, OS, and dependency tree.
+2. **Operational Qualification (OQ):** Runs the package's own `testthat` test suite (if available) and records pass/fail counts and coverage.
+3. **Output hashing:** Computes SHA-256 hashes of test outputs to provide tamper-evident evidence of results.
+4. **Version comparison:** If a previous validation exists for the same package, automatically diffs the results to flag any regressions or behavioral changes.
+5. **Report generation:** Produces a structured, signed PDF validation report suitable for inclusion in a regulatory submission package.
+
+All results are stored in a structured `validation/` directory within the project, forming an auditable evidence trail.
+
+### `valR::validation_docs()` -- GxP documentation generation
+
+`valR::validation_docs()` auto-generates the full suite of GxP validation documents from package metadata and validation results:
+
+```r
+valR::validation_docs("dplyr", output_dir = "validation/docs/")
+```
+
+Generated documents include:
+
+- **Validation Plan** -- Scope, objectives, roles, and responsibilities
+- **User Requirements Specification (URS)** -- What the package is expected to do in the organizational context
+- **Functional Specification (FS)** -- How the package fulfills the URS
+- **Installation Qualification (IQ)** -- Evidence of correct installation
+- **Operational Qualification (OQ)** -- Evidence of correct operation
+- **Performance Qualification (PQ)** -- Evidence of fitness for intended use
+- **Validation Report** -- Summary and sign-off document
+
+Documents are generated as Quarto or R Markdown files, rendered to PDF, and pre-filled with metadata extracted automatically from the package (`DESCRIPTION`, `NEWS`, CRAN check results, test results). Sections requiring human input (e.g., intended use, organizational context) are clearly marked with prompts. Documents follow GxP-standard structure and can be customized with organizational headers, logos, and approval signature blocks.
+
+### `valR::validated_snapshot()` -- Reproducible environment validation
+
+The most powerful feature of `valR` is the ability to validate not just a single package, but an entire R environment -- the combination of R version, OS, and installed packages that will be used for a specific analysis or submission.
+
+```r
+valR::validated_snapshot()
+```
+
+This function produces a **validation capsule**: a self-contained, auditable record of the validated environment. The capsule consists of:
+
+- **`renv.lock`** -- Full package dependency lockfile (via `renv`)
+- **`valR.lock`** -- A structured JSON manifest recording R version, platform, test results hashes, validation timestamps, and cryptographic signatures for each validated package
+- **`validation_report.pdf`** -- An auto-generated summary PDF of the full environment validation
+- **`validation/`** -- An archive directory containing per-package evidence files
+
+The `valR.lock` format is human-readable, version-controllable with Git, and interpretable by anyone -- no special tooling required to read or restore it. An environment can be restored and re-validated at any time with `valR::verify_snapshot()`, which checks that the current environment matches the validated state and flags any discrepancies.
+
+For organizations using containers, `valR::export_dockerfile()` generates a ready-to-build Dockerfile from the snapshot:
+
+```r
+valR::export_dockerfile(output = "Dockerfile")
+# → Writes a Dockerfile pinned to the validated R version,
+#   installing packages from the renv.lock
+#   No Docker system call is made; the function only writes a text file.
+```
+
+This design is fully CRAN-compatible: `renv` is an R package (listed in `Imports`), Docker is never invoked during package checks, and `quarto`/`rmarkdown` are listed in `Suggests` as optional report rendering dependencies.
+
+## Architecture and design principles
+
+`valR` follows three core design principles:
+
+**1. Build on the community, not around it.** `riskmetric`, `renv`, `testthat`, and the pharmaverse ecosystem represent years of community investment. `valR` extends these tools rather than replacing them. The risk scoring in `valR` is a superset of `riskmetric`; the reproducibility layer is built on `renv`; the test execution uses `testthat`'s programmatic API.
+
+**2. Proportional effort.** Not every package needs the same level of validation. `valR`'s risk classification drives the depth of validation applied, avoiding unnecessary overhead for low-risk utility packages while ensuring thorough documentation for packages central to regulatory submissions.
+
+**3. Auditability without infrastructure.** The `valR.lock` format and the structured `validation/` directory are designed to be understandable and reproducible with standard tools (R, Git, a PDF viewer). Pharmaceutical quality assurance teams and regulatory reviewers should be able to inspect validation evidence without needing to understand `valR`'s internals.
+
+## External dependencies
+
+- **`riskmetric`** (pharmaverse) -- risk scoring foundation
+- **`renv`** -- environment snapshotting and lockfile generation
+- **`testthat`** -- programmatic test execution
+- **`digest`** -- SHA-256 hashing of outputs
+- **`cli`** -- user-facing messages and progress reporting
+- **`fs`** -- file system operations
+- **`jsonlite`** -- `valR.lock` serialization
+- **`quarto`** or **`rmarkdown`** (Suggests) -- report rendering
+- **`openssl`** (Suggests) -- report signing

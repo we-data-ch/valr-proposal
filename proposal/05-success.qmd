@@ -1,0 +1,35 @@
+# Success
+
+## Definition of done
+
+The project will be considered complete when the following criteria are met:
+
+1. **The `valR` R package is published on CRAN** and passes `R CMD check` with no errors or warnings on Linux, macOS, and Windows.
+2. **`valR::risk_score()` produces standardized, reproducible risk classifications** for any CRAN package, building on `riskmetric` with documented, configurable scoring weights.
+3. **`valR::validate_package()` executes a complete qualification pipeline** -- IQ, OQ, output hashing, version comparison, and signed PDF report -- without manual intervention for standard CRAN packages.
+4. **`valR::validation_docs()` generates a complete GxP document set** (Validation Plan, URS, FS, IQ, OQ, PQ, Validation Report) from package metadata, pre-filled and ready for review.
+5. **`valR::validated_snapshot()` produces a portable, auditable `valR.lock` manifest** and environment-level validation report; `valR::verify_snapshot()` correctly detects environment drift.
+6. **`valR::export_dockerfile()` generates a valid Dockerfile** from a snapshot without any system calls to Docker.
+7. **At least five R users in regulated industries** (pharmaceutical, biotech, or clinical research) have tested the package and provided feedback during development.
+8. **A comprehensive `pkgdown` site and vignettes** are published, including a full end-to-end workflow example covering all four core functions.
+
+## Measuring success
+
+We will track the following metrics to assess project impact:
+
+- **CRAN downloads:** Target 1,000+ downloads within the first three months of publication, given the active pharmaceutical R user community.
+- **GitHub engagement:** Stars, issues, and pull requests on the `valR` repository (target: 100+ stars during the project period).
+- **Industry adoption:** At least three pharmaceutical or biotech organizations confirm that `valR` has been incorporated into their validation SOPs or workflows.
+- **Community validation:** Endorsement or co-promotion from the R Validation Hub, pharmaverse, or PHUSE working groups.
+- **Documentation reach:** Page views on the `pkgdown` site and vignette access counts.
+- **User feedback:** Qualitative feedback collected from pharmaceutical QA professionals and statistical programmers on document quality and pipeline correctness.
+
+## Future work
+
+This project delivers the core automation layer for R package validation. Several valuable extensions are deferred to future work:
+
+- **Shared validation repository:** A community-maintained repository of `valR.lock` snapshots and validation evidence for popular CRAN packages, enabling organizations to consume pre-validated package assessments rather than repeating the work independently. This is the open-source answer to the `openVal` concept.
+- **CI/CD integration:** GitHub Actions and GitLab CI templates allowing validation pipelines to run automatically on every new package version, triggering re-validation alerts when upstream packages update.
+- **Shiny dashboard:** A web interface for browsing validation status across an organization's R package inventory, built on top of `valR`'s programmatic API.
+- **`riskmetric` upstream contributions:** Insights gained during `valR` development, particularly around pharma-specific scoring dimensions, will be contributed back to the `riskmetric` package and the R Validation Hub.
+- **Extended platform support:** Validation capsules for Bioconductor packages and packages installed from GitHub or internal repositories, beyond the current CRAN focus.

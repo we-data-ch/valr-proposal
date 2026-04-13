@@ -1,0 +1,17 @@
+# Executive Summary
+
+Pharmaceutical and biotech organizations that rely on R for regulatory submissions face a substantial and largely unsolved problem: validating R packages in compliance with GxP guidelines is slow, manual, and inconsistently applied across organizations. A single package validation can take weeks or months of documentation effort, and the same packages (e.g., `dplyr`, `ggplot2`, `tidyr`) are validated independently -- and repeatedly -- by hundreds of companies worldwide.
+
+We propose to develop **`valR`**, a CRAN-publishable R package that provides an integrated, automated framework for R package validation in regulated environments. Rather than replacing existing community efforts, `valR` builds on them: it wraps `riskmetric` (pharmaverse) for risk assessment, `renv` for environment reproducibility, `testthat` for test execution, and `quarto`/`rmarkdown` for GxP-compliant report generation.
+
+The package delivers four core capabilities:
+
+1. **`valR::risk_score()`** -- Computes a standardized risk classification (LOW / MEDIUM / HIGH) for any R package by aggregating `riskmetric` scores with additional pharma-specific indicators. Determines the level of validation effort required.
+
+2. **`valR::validate_package()`** -- Runs a full automated validation pipeline for a given package: installation qualification, unit test execution, output hashing, and version-to-version comparison. Produces a signed, auditable PDF report.
+
+3. **`valR::validation_docs()`** -- Auto-generates the full set of GxP validation documents from package metadata: Validation Plan, User Requirements Specification (URS), Functional Specification (FS), Installation Qualification (IQ), Operational Qualification (OQ), Performance Qualification (PQ), and Validation Report.
+
+4. **`valR::validated_snapshot()`** -- Captures a complete, reproducible validation state for an R environment: an `renv` lockfile, SHA-256 hashes of test outputs, a structured `valR.lock` manifest, and an archived PDF report. For teams using containers, `valR::export_dockerfile()` generates a ready-to-build Dockerfile from the snapshot -- with no system calls required during CRAN checks.
+
+**Requested funding:** $15,000 USD over ten months, primarily allocated to development time, GxP template design, and user testing with pharmaceutical industry partners.

@@ -1,0 +1,5 @@
+project:
+  title: "typr-isc-proposal"
+  render:
+    - "*.qmd"
+    - "!proposal/"

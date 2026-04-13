@@ -1,0 +1,39 @@
+---
+title: "valR -- An Automated Validation Framework for R Packages in Regulated Environments"
+author:
+  - name: Fabrice Hategekimana
+    affiliations:
+      - "WeData Swiss Association & Satom IT"
+  - name: Vestin Hategekimana
+    affiliations:
+      - "WeData & University of Geneva"
+  - name: David Munoz Tord
+    affiliations:
+      - "WeData"
+
+date: today
+date-format: iso
+format:
+  html:
+    embed-resources: true
+  hikmah-pdf:
+    geometry:
+      - left=1.25in
+      - right=1.25in
+bibliography: references.bib
+---
+
+{{< include proposal/00-exec-summary.qmd >}}
+
+{{< include proposal/01-signatories.qmd >}}
+
+{{< include proposal/02-problemdefinition.qmd >}}
+
+{{< include proposal/03-proposal.qmd >}}
+
+{{< include proposal/04-timeline.qmd >}}
+
+{{< include proposal/05-success.qmd >}}
+
+::: refs
+:::
