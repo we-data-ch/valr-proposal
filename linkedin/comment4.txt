@@ -1,0 +1,3 @@
+From: Brian Repko 
+Body:
+This effort looks great - particularly the Quarto report generation. Some coordination with the R Validation Hub and pharmaverse could be useful. I did not get around to putting in my ISC proposal - for Quarto / Markdown ATDD based testing of a library of R packages - vs validation on a package / version basis. See https://www.youtube.com/watch?v=nD58ZPW8e6w from R/Pharma - but happy to add on to what you are building.

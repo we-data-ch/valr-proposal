@@ -1,0 +1,26 @@
+Validating R packages for regulatory submissions (GxP, FDA, EMA) is slow, manual, and repeated independently by hundreds of
+ organizations worldwide. The same packages — dplyr, ggplot2, survival — validated over and over again. That's 100,000+ hours
+  of duplicated industry effort every year.
+
+ We think the R community can do better.
+
+ That's why, at #WeData, we're working on valR — an open-source R package that automates the full validation pipeline:
+
+ - Risk classification (LOW / MEDIUM / HIGH)
+ - Automated IQ/OQ qualification with signed PDF reports
+ - Auto-generated GxP documentation (URS, FS, IQ, OQ, PQ)
+ - Reproducible environment validation capsules
+
+ We're preparing a proposal for the R Consortium ISC Grant — and before we submit, we'd love to hear from you.
+
+ Are you working in pharma, biotech, or clinical research and dealing with R package validation? Have you used riskmetric,
+ valtools, or Axon.R? What's missing?
+
+ Your feedback would mean a lot and help shape what we build.
+
+ Drop a comment, send a DM, or read the full proposal here:
+https://lnkd.in/e66_j-dx
+
+Huge thanks to my collaborators David Munoz Tord and Vestin Hategekimana, Jean-Philippe Coene and Benoit Falquet for making this happen!
+
+#RStats #Pharma #OpenSource #RConsortium #GxP #Validation #RCommunity

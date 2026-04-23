@@ -1,0 +1,12 @@
+From: Adrian Olszewski 
+Body:
+Fabrice Hategekimana I work in pharma (100% R-based CRO; >400 packages used in the last 10 years) and I'm responsible for maintaining the validated R environment. But validation means something else to me:
+1. "are the computed results valid numerically?"
+2. "are the computed results compliant with SAS (the major de facto industry standard in pharma)? If not - why?" It doesn't mean that SAS is always right at all. Only that if the industry (using SAS in most submissions and non-submitted studies) asks me for the discrepancies, I am able to explain them clearly: a) error in R, b) both correct but R uses different settings/approach/parametrization/optimization. So I won't answer "I have no idea why our calculations differ".
+I'm on the opinion that:
+1. top popularity (thousands of downloads, 100s stars on GitHub, citations in in dozens of papers, tutorials, presentations, conferences)
+2. rich resources (vignettes, tutorials, etc.)
+3. top code quality (matching certain criteria)
+don't matter at ll if the results are wrong so my study fails. I call it "validated-by-being-nice".
+Therefore, I'm most interested in the numerical validations aspects.
+Here's my presentation given at the R in Pharma 2020: https://tinyurl.com/29w6g8xc

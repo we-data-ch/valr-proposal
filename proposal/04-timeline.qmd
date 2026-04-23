@@ -63,7 +63,7 @@ The following infrastructure is already in place:
 
 ## Other aspects
 
-- **Community coordination:** We will engage with the pharmaverse working groups (R Validation Hub, PHUSE) during development to ensure alignment and avoid duplication with ongoing community efforts.
+- **Community coordination:** We will actively engage with the R Validation Hub ([pharmaR.org](https://github.com/pharmaR)), the pharmaverse working groups, and PHUSE throughout development. Our goal is to position `valR` as a practical implementation of the Hub's recommended frameworks, not a competing initiative. We will reach out to the maintainers of `riskmetric`, `risk.assessR`, and `test.assessR` to explore interoperability and avoid duplicating effort. We will also coordinate with researchers exploring ATDD-based (Acceptance Test-Driven Development) validation approaches, which are complementary to `valR`'s pipeline.
 - **Code hosting:** All code hosted on GitHub at `github.com/we-data-ch/valR`, open to contributions.
 - **Quarterly blog posts:** Progress updates on the R Consortium blog at months 2, 4, 7, and 10.
 - **WeData YouTube channel:** Tutorial videos in French and English covering `valR` usage in pharma contexts.

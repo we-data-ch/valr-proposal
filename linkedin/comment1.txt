@@ -1,0 +1,13 @@
+From: Andre Couturier
+
+Body:
+Fabrice Hategekimana Have you had a look at Sanofi's Risk.AssessR and Test.AssessR combo? No validation, just assessments. 
+
+In my opinion, validation should be the package owner/maintainer responsibility. 
+If one decides to use a High risk package (you are responsible to define what this means for you), it's their responsibility to mitigate the risk according to their SOPs in collaboration with QA
+
+https://cran.r-project.org/web/packages/risk.assessr/readme/README.html
+
+https://cran.r-project.org/web/packages/test.assessr/readme/README.html
+
+Note: A new version of risk.assessr is coming in a few weeks

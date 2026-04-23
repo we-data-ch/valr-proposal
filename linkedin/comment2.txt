@@ -1,0 +1,6 @@
+From: Hugo Bottois, PhD 
+
+Body:
+The Pharma R ecosystem (https://github.com/pharmaR) historically already gathers several initiatives in this space, and others initiative such as risk.assessr (https://github.com/Sanofi-Public/risk.assessr), are active project tackling package risk assessment challenges.
+
+Given this landscape, it might be worth considering to prioritize and support the more innovative or differentiated projects instead of overlapping with other well advance projects.
